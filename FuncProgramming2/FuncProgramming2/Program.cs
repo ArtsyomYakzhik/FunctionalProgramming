@@ -10,8 +10,9 @@ namespace FuncProgramming2
     {
         static void Main(string[] args)
         {
-            //Console.WriteLine(BinarySearch(1, new int[] { 1,2,3,4,5,6,7}, 0, 7));
-            Console.WriteLine(firstNPerfectNumbers(100000, new int[] { }).Length);
+            Console.WriteLine(BinarySearch(1, new int[] { 1,2,3,4,5,6,7}, 0, 7));
+            foreach(var element in firstNPerfectNumbers(28, new List<int>()))
+                Console.WriteLine(element);
         }
 
         private static int BinarySearch(int searcheable ,int[] sortedArray, int leftBound, int rightBound)
@@ -22,17 +23,18 @@ namespace FuncProgramming2
                 BinarySearch(searcheable, sortedArray, leftBound, rightBound);
         }
 
-        private static int[] firstNPerfectNumbers(int n, int[] arrayOfPerfects)
+        private static List<int> firstNPerfectNumbers(int n, List<int> arrayOfPerfects)
         {
-            if (n == dividersSum(n, n))
-                arrayOfPerfects.Append(n);
+            int buffer = dividersSum(n, n);
+            if (n == buffer)
+                arrayOfPerfects.Add(n);
             return n == 1 ? arrayOfPerfects : firstNPerfectNumbers(--n, arrayOfPerfects);
         }
         private static int dividersSum(int n, int i)
         {
             if (n == 1)
                 return 0;
-            return i == 1 ? 1 : n % (--i) == 0 ? i : 0 + dividersSum(n, i);   
+            return i == 1 ? 0 : n % (--i) == 0 ? i + dividersSum(n, i) : dividersSum(n, i);   
         }
     }
 }
