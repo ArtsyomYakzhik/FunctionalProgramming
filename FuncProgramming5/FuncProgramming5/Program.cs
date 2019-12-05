@@ -42,6 +42,18 @@ namespace FuncProgramming5
             {
                 Console.Write(element.Value + " ");
             }
+            //-----------------------
+            string input = Console.ReadLine();
+            var punctuation = input.Where(Char.IsPunctuation).Distinct().ToArray();
+            var arrayOfWords = input.Split().Select(x => x.Trim(punctuation)).Where(x => x!="");
+            var groupedWords = arrayOfWords.GroupBy(x => x);
+            var output = groupedWords.Select(x => new KeyValuePair<string, int>(x.Key, x.Count()));
+            foreach(var element in Console.ReadLine()
+                .Split().Select(x => x.Trim(
+                    input.Where(Char.IsPunctuation).Distinct().ToArray())).Where(x => x != "")
+                .GroupBy(x => x)
+                .Select(x => new KeyValuePair<string, int>(x.Key, x.Count())))
+                Console.WriteLine(element);
         }
     }
 }
